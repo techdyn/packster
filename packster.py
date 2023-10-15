@@ -10,7 +10,7 @@
 
 """
 
-SCRIPT_VERSION = "0.1.0"
+SCRIPT_VERSION = "0.1.1"
 
 import os, argparse, glob, json, fnmatch
 from pathlib import Path
@@ -70,6 +70,11 @@ def zip_files(files, out_name='output.zip', out_path='dist'):
 def process_packster(data, package):
     q_print('Processing:  ', package)
 
+    dist = get_arg("dist")
+    if dist and not len(data['packages']) > 1:
+            print('Error: Must specify --package arg with --dist, exiting...')
+            exit()
+
     pkg_data = data['packages'][package]
     exclude = pkg_data['exclude'] if 'exclude' in pkg_data else []
 
@@ -85,8 +90,9 @@ def process_packster(data, package):
             process_dir('.', file, exclude, skip, match, False, True)
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    output_fn = package + "_" + timestamp + '.zip'
-    output_dir = pkg_data['outDir'] if 'outDir' in pkg_data else'dist'
+    output_fn = package + "_" + timestamp + '.zip' if not dist else dist
+    
+    output_dir = pkg_data['outDir'] if 'outDir' in pkg_data else 'dist'
 
     for f in skip:
         if get_arg('verbose'):
@@ -126,6 +132,7 @@ def parse_args():
     parser.add_argument('--quiet', required=False, default=False, action='store_true', help='suppress log output, except for errors')
     parser.add_argument('--version', required=False, default=False, action='store_true', help='output current version information')
     parser.add_argument('--dir', type=set_dir_path, help='specify the current working directory')
+    parser.add_argument('--dist', type=set_dir_path, help='specify the dist filename')
     parser.add_argument('--package', type=set_target_package, help='specify a particular package')
     parsed_args = parser.parse_args()
 
