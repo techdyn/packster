@@ -1,5 +1,5 @@
 #!/usr/bin/python
-"""
+'''
 
     ____                __          __
    / __ \ ____ _ _____ / /__ _____ / /_ ___   _____
@@ -8,9 +8,9 @@
 /_/     \__,_/ \___//_/|_|/____/ \__/ \___//_/  v{SCRIPT_VERSION}
                                                 by TechDyn
 
-"""
+'''
 
-SCRIPT_VERSION = "0.1.1"
+SCRIPT_VERSION = "0.1.2"
 
 import os, argparse, glob, json, fnmatch
 from pathlib import Path
