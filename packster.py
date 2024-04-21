@@ -1,5 +1,5 @@
 #!/usr/bin/python
-'''
+r'''
 
     ____                __          __
    / __ \ ____ _ _____ / /__ _____ / /_ ___   _____
@@ -10,7 +10,7 @@
 
 '''
 
-SCRIPT_VERSION = "0.1.2"
+SCRIPT_VERSION = "0.1.3"
 
 import os, argparse, glob, json, fnmatch
 from pathlib import Path
